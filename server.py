@@ -1,17 +1,24 @@
 from mcp.server.fastmcp import FastMCP
 import os
-import git
+from dotenv import load_dotenv
 
 
-repo_path = '../4105/GitPython' 
+load_dotenv("D:/4105/open_deep_research/.env")
+repo_path = "D:/4105/GitPython"
 
 mcp = FastMCP("Codebase")
 
+
 @mcp.tool()
-def list_repo_files():
-    """List all files in the repo."""
-    repo = git.Repo(repo_path)
-    return [item.path for item in repo.tree().traverse() if item.type == 'blob']
+def list_files():
+    """List files in the given folder path."""
+    try:
+        return [
+            f for f in os.listdir(repo_path)
+            if os.path.isfile(os.path.join(repo_path, f))
+        ]
+    except Exception as e:
+        return [f"Error accessing path: {e}"]
 
 
 @mcp.tool()
@@ -21,7 +28,7 @@ def read_file(file_name):
     with open(abs_path, 'r', encoding='utf-8') as f:
         return f.read()
 
-@mcp.prompt()
+@mcp.tool()
 def find_files_by_keyword_prompt(keyword):
     """Find file in the repo by the given keyword."""
     matching_files = []
@@ -38,3 +45,7 @@ def find_files_by_keyword_prompt(keyword):
                 continue
 
     return f"{len(matching_files)} files found: {', '.join(matching_files)}"
+
+if __name__ == "__main__":
+    print("Starting MCP server...")
+    mcp.run(transport="sse")
