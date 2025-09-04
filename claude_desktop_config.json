@@ -6,16 +6,14 @@
         "@anaisbetts/mcp-installer"
       ]
     },
-
     "server-filesystem": {
-       "command": "npx",
-       "args": [
-         "@modelcontextprotocol/server-filesystem",
-         "D:\\4105\\GitPython"
-       ]
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "D:\\4105\\GitPython"
+      ]
     },
-  
-    "mcposerver": {
+    "Codebase": {
       "command": "uv",
       "args": [
         "run",
@@ -23,8 +21,7 @@
         "mcp[cli]",
         "mcp",
         "run",
-        "D:\\4105\\open_deep_research\\mcposerver.py",
-        "D:\\4105\\GitPython"
+        "D:\\4105\\open_deep_research\\server.py"
       ]
     }
   }
